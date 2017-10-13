@@ -57,7 +57,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AddProductTest.cs">
+    <Compile Include="DatabaseTests.cs">
       <SubType>Designer</SubType>
     </Compile>
     <Compile Include="SqlDatabaseSetup.cs" />
@@ -67,8 +67,8 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AddProductTest.resx">
-      <DependentUpon>AddProductTest.cs</DependentUpon>
+    <EmbeddedResource Include="DatabaseTests.resx">
+      <DependentUpon>DatabaseTests.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

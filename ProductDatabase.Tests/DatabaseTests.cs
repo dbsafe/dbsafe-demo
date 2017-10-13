@@ -10,10 +10,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace ProductDatabase.Tests
 {
     [TestClass()]
-    public class AddProductTest : SqlDatabaseTestClass
+    public class DatabaseTests : SqlDatabaseTestClass
     {
 
-        public AddProductTest()
+        public DatabaseTests()
         {
             InitializeComponent();
         }
@@ -37,28 +37,29 @@ namespace ProductDatabase.Tests
         /// </summary>
         private void InitializeComponent()
         {
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction dbo_usp_AddProductTest_TestAction;
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddProductTest));
-            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.InconclusiveCondition inconclusiveCondition1;
-            dbo_usp_AddProductTestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
-            dbo_usp_AddProductTest_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
-            inconclusiveCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.InconclusiveCondition();
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction Database_Dummy_Test_TestAction;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DatabaseTests));
+            Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition notEmptyResultSetCondition1;
+            this.Database_Dummy_TestData = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestActions();
+            Database_Dummy_Test_TestAction = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.SqlDatabaseTestAction();
+            notEmptyResultSetCondition1 = new Microsoft.Data.Tools.Schema.Sql.UnitTesting.Conditions.NotEmptyResultSetCondition();
             // 
-            // dbo_usp_AddProductTest_TestAction
+            // Database_Dummy_Test_TestAction
             // 
-            dbo_usp_AddProductTest_TestAction.Conditions.Add(inconclusiveCondition1);
-            resources.ApplyResources(dbo_usp_AddProductTest_TestAction, "dbo_usp_AddProductTest_TestAction");
+            Database_Dummy_Test_TestAction.Conditions.Add(notEmptyResultSetCondition1);
+            resources.ApplyResources(Database_Dummy_Test_TestAction, "Database_Dummy_Test_TestAction");
             // 
-            // inconclusiveCondition1
+            // Database_Dummy_TestData
             // 
-            inconclusiveCondition1.Enabled = true;
-            inconclusiveCondition1.Name = "inconclusiveCondition1";
+            this.Database_Dummy_TestData.PosttestAction = null;
+            this.Database_Dummy_TestData.PretestAction = null;
+            this.Database_Dummy_TestData.TestAction = Database_Dummy_Test_TestAction;
             // 
-            // dbo_usp_AddProductTestData
+            // notEmptyResultSetCondition1
             // 
-            dbo_usp_AddProductTestData.PosttestAction = null;
-            dbo_usp_AddProductTestData.PretestAction = null;
-            dbo_usp_AddProductTestData.TestAction = dbo_usp_AddProductTest_TestAction;
+            notEmptyResultSetCondition1.Enabled = true;
+            notEmptyResultSetCondition1.Name = "notEmptyResultSetCondition1";
+            notEmptyResultSetCondition1.ResultSet = 1;
         }
 
         #endregion
@@ -79,9 +80,9 @@ namespace ProductDatabase.Tests
         #endregion
 
         [TestMethod()]
-        public void dbo_usp_AddProductTest()
+        public void Database_Dummy_Test()
         {
-            SqlDatabaseTestActions testActions = dbo_usp_AddProductTestData;
+            SqlDatabaseTestActions testActions = Database_Dummy_TestData;
             // Execute the pre-test script
             // 
             System.Diagnostics.Trace.WriteLineIf((testActions.PretestAction != null), "Executing pre-test script...");
@@ -101,6 +102,6 @@ namespace ProductDatabase.Tests
                 SqlExecutionResult[] posttestResults = TestService.Execute(PrivilegedContext, PrivilegedContext, testActions.PosttestAction);
             }
         }
-        private SqlDatabaseTestActions dbo_usp_AddProductTestData;
+        private SqlDatabaseTestActions Database_Dummy_TestData;
     }
 }

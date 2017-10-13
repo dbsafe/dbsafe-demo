@@ -117,24 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="dbo_usp_AddProductTest_TestAction.SqlScript" xml:space="preserve">
-    <value>-- database unit test for dbo.usp_AddProduct
-DECLARE @RC AS INT, @Code AS VARCHAR (50), @Name AS NVARCHAR (50), @Description AS NVARCHAR (MAX), @Cost AS MONEY, @ListPrice AS MONEY, @CategoryId AS INT, @SupplierId AS INT;
-
-SELECT @RC = 0,
-       @Code = NULL,
-       @Name = NULL,
-       @Description = NULL,
-       @Cost = NULL,
-       @ListPrice = NULL,
-       @CategoryId = 0,
-       @SupplierId = 0;
-
--- EXECUTE @RC = [dbo].[usp_AddProduct] @Code, @Name, @Description, @Cost, @ListPrice, @CategoryId, @SupplierId;
--- This is a dummy test to deploy the database.
-
-SELECT @RC AS RC;
-
+  <data name="Database_Dummy_Test_TestAction.SqlScript" xml:space="preserve">
+    <value>SELECT GETDATE();
 </value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
