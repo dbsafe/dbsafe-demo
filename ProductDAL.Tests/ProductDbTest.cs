@@ -58,13 +58,13 @@ namespace ProductDAL.Tests
         }
 
         [TestMethod]
-        public void GetProductSummaries_Must_return_all_the_product_sumaries()
+        public void GetProductSummaries_Must_return_all_the_product_summaries()
         {
             var expected = new List<ProductSummary>() { _productSummary1, _productSummary2, _productSummary3 };
 
             var actual = _target.GetProductSummaries();
 
-            AssertProductSumaries(expected, actual);
+            AssertProductSummaries(expected, actual);
         }
 
         [TestMethod]
@@ -134,19 +134,19 @@ namespace ProductDAL.Tests
             Assert.AreEqual(expected.Name, actual.Name);
         }
 
-        private void AssertProductSumaries(IList<ProductSummary> expected, IList<ProductSummary> actual)
+        private void AssertProductSummaries(IList<ProductSummary> expected, IList<ProductSummary> actual)
         {
             Assert.AreEqual(expected.Count, actual.Count);
 
-            foreach (var expectedProductSumary in expected)
+            foreach (var expectedProductSummary in expected)
             {
-                var actualSummary = actual.FirstOrDefault(a => a.Id == expectedProductSumary.Id);
-                Assert.IsNotNull(actualSummary, $"Category with Id '{expectedProductSumary.Id}' not found.");
-                AssertProductSumary(expectedProductSumary, actualSummary);
+                var actualSummary = actual.FirstOrDefault(a => a.Id == expectedProductSummary.Id);
+                Assert.IsNotNull(actualSummary, $"Category with Id '{expectedProductSummary.Id}' not found.");
+                AssertProductSummary(expectedProductSummary, actualSummary);
             }
         }
 
-        private void AssertProductSumary(ProductSummary expected, ProductSummary actual)
+        private void AssertProductSummary(ProductSummary expected, ProductSummary actual)
         {
             Assert.AreEqual(expected.Category, actual.Category);
             Assert.AreEqual(expected.Code, actual.Code);
