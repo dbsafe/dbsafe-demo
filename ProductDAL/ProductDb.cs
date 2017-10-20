@@ -15,13 +15,13 @@ namespace ProductDAL
             {
                 var parameterId = new ObjectParameter("Id", typeof(int));
                 db.usp_AddProduct(
-                    product.Code, 
-                    product.Name, 
-                    product.Description, 
-                    product.Cost, 
-                    product.ListPrice, 
-                    product.CategoryId, 
-                    product.SupplierId, 
+                    product.Code,
+                    product.Name,
+                    product.Description,
+                    product.Cost,
+                    product.ListPrice,
+                    product.CategoryId,
+                    product.SupplierId,
                     product.ReleaseDate,
                     parameterId);
                 return (int)parameterId.Value;
@@ -90,9 +90,29 @@ namespace ProductDAL
             }
         }
 
-        public IList<Domain.Supplier> GetSupliers()
+        public IList<Domain.Supplier> GetSuppliers()
         {
             throw new NotImplementedException();
+        }
+
+        public bool UpdateSupplier(Domain.Supplier supplier)
+        {
+            using (var db = CreateDbContext())
+            {
+                var record = db.Suppliers.FirstOrDefault(a => a.Id == supplier.Id);
+                if (record == null)
+                {
+                    return false;
+                }
+
+                record.ContactEmail = supplier.ContactEmail;
+                record.ContactName = supplier.ContactName;
+                record.ContactPhone = supplier.ContactPhone;
+                record.Name = supplier.Name;
+                record.ContactEmail = supplier.ContactEmail;
+                db.SaveChanges();
+                return true;
+            }
         }
 
         private ProductEntities CreateDbContext()

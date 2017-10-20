@@ -116,6 +116,42 @@ namespace ProductDAL.Tests
             Assert.AreEqual(100, actual);
         }
 
+        [TestMethod]
+        public void UpdateSupplier_Given_supplier_Must_update_record_and_return_true()
+        {
+            var supplier2 = new Supplier
+            {
+                Id = 2,
+                Name = "supplier-2-updated",
+                ContactName = "contact-name-2-updated",
+                ContactPhone = "100-200-9999",
+                ContactEmail = "email-2-updated@test.com"
+            };
+
+            var actual = _target.UpdateSupplier(supplier2);
+
+            Assert.IsTrue(actual);
+            _dbSafe.AssertDatasetVsScript("suppliers-updated", "select-all-suppliers", "Id");
+        }
+
+        [TestMethod]
+        public void UpdateSupplier_Given_an_id_that_does_not_exist_Must_return_false_whiout_updating_any_record()
+        {
+            var supplier2 = new Supplier
+            {
+                Id = 200,
+                Name = "supplier-2-updated",
+                ContactName = "contact-name-2-updated",
+                ContactPhone = "100-200-9999",
+                ContactEmail = "email-2-updated@test.com"
+            };
+
+            var actual = _target.UpdateSupplier(supplier2);
+
+            Assert.IsFalse(actual);
+            _dbSafe.AssertDatasetVsScript("suppliers", "select-all-suppliers", "Id");
+        }
+
         private void AssertCategories(IList<Category> expected, IList<Category> actual)
         {
             Assert.AreEqual(expected.Count, actual.Count);

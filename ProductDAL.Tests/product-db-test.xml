@@ -24,6 +24,10 @@
     <script name="mock_get_date">
       ALTER PROCEDURE [dbo].[usp_GetDate] @Date datetime output AS SET @Date = '2015-10-20 14:50:01.456';
     </script>
+
+    <script name="select-all-suppliers">
+      SELECT * FROM [dbo].[Supplier];
+    </script>
   </scripts>
 
   <datasets>
@@ -59,6 +63,14 @@
         <row Id="100" Code="code-100" Name="product-100" Description="desc-100" Cost="1000.00" ListPrice="1100.00" CategoryId="1" SupplierId="2" ReleaseDate="2010-10-10" CreatedOn="2015-10-20 14:50:01.456"/>
       </data>
     </dataset>
+
+    <dataset name="suppliers-updated" table="Supplier">
+      <data>
+        <row Id="1" Name="supplier-1" ContactName="contact-name-1" ContactPhone="100-200-0001" ContactEmail="email-1@test.com" />
+        <row Id="2" Name="supplier-2-updated" ContactName="contact-name-2-updated" ContactPhone="100-200-9999" ContactEmail="email-2-updated@test.com" />
+        <row Id="3" Name="supplier-3" ContactName="contact-name-3" ContactPhone="100-200-0003" ContactEmail="email-3@test.com" />
+      </data>
+    </dataset>    
 
   </datasets>
 </dbTest>
