@@ -57,10 +57,10 @@
 
     <dataset name="products-after-insert" table="Product">
       <data>
-        <row Id="1" Code="code-1" Name="product-1" Description="desc-1" Cost="101.10" ListPrice="111.10" CategoryId="1" SupplierId="1" ReleaseDate="2000-01-01" CreatedOn="2000-01-01"/>
+        <row Id="1" Code="code-1" Name="product-1" Description="desc-1" Cost="101.10" ListPrice="111.10" CategoryId="1" SupplierId="1" ReleaseDate="2000-01-01" CreatedOn="2000-01-01 00:00:00"/>
         <row Id="2" Code="code-2" Name="product-2" Description="desc-2" Cost="102.10" ListPrice="112.10" CategoryId="1" SupplierId="2" ReleaseDate="2000-01-02" CreatedOn="2000-01-01 10:11:12"/>
         <row Id="3" Code="code-3" Name="product-3" Description="desc-3" Cost="103.10" ListPrice="113.10" CategoryId="2" SupplierId="1" ReleaseDate="2000-01-03" CreatedOn="2000-01-02 10:11:12"/>
-        <row Id="100" Code="code-100" Name="product-100" Description="desc-100" Cost="1000.00" ListPrice="1100.00" CategoryId="1" SupplierId="2" ReleaseDate="2010-10-10" CreatedOn="2015-10-20 14:50:01.456"/>
+        <row Id="100" Code="code-100" Name="product-100" Description="desc-100" Cost="1000.00" ListPrice="1100.00" CategoryId="1" SupplierId="2" ReleaseDate="2010-10-10" CreatedOn="2015-10-20 14:50:01"/>
       </data>
     </dataset>
 

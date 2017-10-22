@@ -29,14 +29,15 @@ namespace ProductDAL.Tests
         public void Initialize()
         {
             _target = new ProductDb();
-            
+
             _dbSafe = SqlDbSafeManager.Initialize("product-db-test.xml")
                 .SetConnectionString("ProductEntities-Test-Framework")
                 .ExecuteScripts("delete-products", "delete-categories", "delete-suppliers", "reseed-product-table")
                 .LoadTables("categories", "suppliers", "products")
-                .RegisterFormatter(typeof(DateTime), value => FormatDateTime((DateTime)value))
-                .RegisterFormatter("CreatedOn", value => FormatDateTimeWithMs((DateTime)value))
-                .RegisterFormatter(typeof(decimal), value => ((decimal)value).ToString("0.00"));
+
+                .RegisterFormatter(typeof(DateTime), new DateTimeFormatter("yyyy-MM-dd HH:mm:ss"))
+                .RegisterFormatter("ReleaseDate", new DateTimeFormatter("yyyy-MM-dd"))
+                .RegisterFormatter(typeof(decimal), new DecimalFormatter("0.00"));
 
             Console.WriteLine($"IsGlobalConfig: {_dbSafe.Config.IsGlobalConfig}, SerializeTests: {_dbSafe.Config.SerializeTests}");
         }
