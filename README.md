@@ -5,6 +5,9 @@ Demonstrates how to use [NuGet package SqlDbSafe]( https://www.nuget.org/package
 Projects
 --------
 
+**ProductBL:**<br>
+Project where the domain objects are defined.
+
 **ProductDatabase:**<br>
 SQL Server Database project with a demo database.
 
