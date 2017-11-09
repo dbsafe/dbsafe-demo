@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductDAL", "ProductDAL\ProductDAL.csproj", "{59F71551-9A66-4751-870F-082A6B7D43B4}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ProductDatabase", "ProductDatabase\ProductDatabase.sqlproj", "{15DCF14B-E1C2-472E-BBD4-CB0FE31C0B61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductDatabase.Tests", "ProductDatabase.Tests\ProductDatabase.Tests.csproj", "{5338259F-1259-4196-BF62-FDBB688D2702}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductBL", "ProductBL\ProductBL.csproj", "{2654AB0D-6984-419C-B0C8-D4D5CB7E62CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{5338259F-1259-4196-BF62-FDBB688D2702}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5338259F-1259-4196-BF62-FDBB688D2702}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5338259F-1259-4196-BF62-FDBB688D2702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2654AB0D-6984-419C-B0C8-D4D5CB7E62CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2654AB0D-6984-419C-B0C8-D4D5CB7E62CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2654AB0D-6984-419C-B0C8-D4D5CB7E62CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2654AB0D-6984-419C-B0C8-D4D5CB7E62CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

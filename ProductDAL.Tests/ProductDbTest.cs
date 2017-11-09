@@ -1,6 +1,6 @@
 ﻿using DbSafe;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProductDAL.Domain;
+using ProductBL.Domain;
 using SqlDbSafe;
 using System;
 using System.Collections.Generic;

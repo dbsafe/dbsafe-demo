@@ -1,5 +1,5 @@
-﻿using ProductDAL.Db;
-using ProductDAL.Domain;
+﻿using Domain = ProductBL.Domain;
+using ProductDAL.Db;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core.Objects;
@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ProductDAL
 {
-    public class ProductDb : IProductDb
+    public class ProductDb : Domain.IProductDb
     {
         public int AddProduct(Domain.Product product)
         {

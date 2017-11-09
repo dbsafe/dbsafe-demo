@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ProductDAL.Domain
+namespace ProductBL.Domain
 {
     public interface IProductDb
     {

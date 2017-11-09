@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ProductDAL.Domain
+namespace ProductBL.Domain
 {
     public class Product
     {
