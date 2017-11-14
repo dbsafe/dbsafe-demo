@@ -2,15 +2,15 @@
 <dbTest>
   <scripts>
     <script name="delete-products">
-      DELETE [dbo].[Product];
+      DELETE FROM public.product;
     </script>
 
     <script name="delete-categories">
-      DELETE [dbo].[Category];
+      DELETE FROM public.category;
     </script>
 
     <script name="delete-suppliers">
-      DELETE [dbo].[Supplier];
+      DELETE FROM public.supplier;
     </script>
 
     <script name="select-all-products">
@@ -18,7 +18,7 @@
     </script>
 
     <script name="reseed-product-table">
-      DBCC CHECKIDENT ('[dbo].[Product]', RESEED, 99);
+      -- DBCC CHECKIDENT ('[dbo].[Product]', RESEED, 99);
     </script>
 
     <script name="mock_get_date">

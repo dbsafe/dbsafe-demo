@@ -31,9 +31,9 @@ namespace ProductDAL.PG.Tests
             _target = new ProductDb();
 
             _dbSafe = PgDbSafeManager.Initialize("product-db-test.xml")
-                .SetConnectionString("ProductEntities-Test-Framework")
+                .PassConnectionString("Host=localhost;Database=product;Username=dbsafe;Password=dbsafe")
                 .ExecuteScripts("delete-products", "delete-categories", "delete-suppliers", "reseed-product-table")
-                .LoadTables("categories", "suppliers", "products")
+                // .LoadTables("categories", "suppliers", "products")
 
                 .RegisterFormatter(typeof(DateTime), new DateTimeFormatter("yyyy-MM-dd HH:mm:ss"))
                 .RegisterFormatter("ReleaseDate", new DateTimeFormatter("yyyy-MM-dd"))

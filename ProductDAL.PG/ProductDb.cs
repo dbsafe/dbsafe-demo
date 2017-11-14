@@ -1,5 +1,7 @@
-﻿using System;
+﻿using ProductDAL.PG.Db;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain = ProductBL.Domain;
 
 namespace ProductDAL.PG
@@ -13,7 +15,13 @@ namespace ProductDAL.PG
 
         public IList<Domain.Category> GetCategories()
         {
-            throw new NotImplementedException();
+            using (var db = CreateDbContext())
+            {
+                return db.Categories
+                    .ToList()
+                    .Select(record => new Domain.Category { Id = record.Id, Name = record.Name })
+                    .ToList();
+            }
         }
 
         public Domain.Product GetProduct(int productId)
@@ -34,6 +42,11 @@ namespace ProductDAL.PG
         public bool UpdateSupplier(Domain.Supplier supplier)
         {
             throw new NotImplementedException();
+        }
+
+        private ProductEntities CreateDbContext()
+        {
+            return new ProductEntities();
         }
     }
 }
