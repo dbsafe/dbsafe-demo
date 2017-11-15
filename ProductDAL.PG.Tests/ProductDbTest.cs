@@ -25,10 +25,13 @@ namespace ProductDAL.PG.Tests
         private Product _product2 = new Product { Id = 2, Code = "code-2", Name = "product-2", CategoryId = 1, SupplierId = 2, Cost = 102.10m, Description = "desc-2", ListPrice = 112.10m, ReleaseDate = new DateTime(2000, 1, 2), CreatedOn = new DateTime(2000, 1, 1, 10, 11, 12) };
         private Product _product100 = new Product { Code = "code-100", Name = "product-100", CategoryId = 1, SupplierId = 2, Cost = 1000m, Description = "desc-100", ListPrice = 1100m, ReleaseDate = new DateTime(2010, 10, 10), CreatedOn = new DateTime(2010, 1, 1, 12, 12, 12) };
 
+        public TestContext TestContext { get; set; }
+
         [TestInitialize]
         public void Initialize()
         {
             _target = new ProductDb();
+            _target.Log = TestContext.WriteLine;
 
             _dbSafe = PgDbSafeManager.Initialize("product-db-test.xml")
                 .SetConnectionString("ProductEntities-Test-Framework")

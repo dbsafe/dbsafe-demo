@@ -1,5 +1,4 @@
-﻿using Npgsql;
-using ProductDAL.PG.Db;
+﻿using ProductDAL.PG.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +9,8 @@ namespace ProductDAL.PG
     public class ProductDb : Domain.IProductDb
     {
         private string _nameOrConnectionString;
+
+        public Action<string> Log { get; set; }
 
         public ProductDb(string nameOrConnectionString)
         {
@@ -79,7 +80,9 @@ namespace ProductDAL.PG
 
         private ProductEntities CreateDbContext()
         {
-            return new ProductEntities(_nameOrConnectionString);
+            var db = new ProductEntities(_nameOrConnectionString);
+            db.Database.Log = Log;
+            return db;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace ProductDAL
 {
     public class ProductDb : Domain.IProductDb
     {
+        public Action<string> Log { get; set; }
+
         public int AddProduct(Domain.Product product)
         {
             using (var db = CreateDbContext())
@@ -117,7 +119,9 @@ namespace ProductDAL
 
         private ProductEntities CreateDbContext()
         {
-            return new ProductEntities();
+            var db = new ProductEntities();
+            db.Database.Log = Log;
+            return db;
         }
     }
 }
