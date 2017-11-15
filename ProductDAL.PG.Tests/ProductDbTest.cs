@@ -28,12 +28,13 @@ namespace ProductDAL.PG.Tests
         [TestInitialize]
         public void Initialize()
         {
-            _target = new ProductDb();
+            var connectionString = "Host=localhost;Database=product;Username=dbsafe;Password=dbsafe";
+            _target = new ProductDb(connectionString);
 
             _dbSafe = PgDbSafeManager.Initialize("product-db-test.xml")
-                .PassConnectionString("Host=localhost;Database=product;Username=dbsafe;Password=dbsafe")
+                .PassConnectionString(connectionString)
                 .ExecuteScripts("delete-products", "delete-categories", "delete-suppliers", "reseed-product-table")
-                // .LoadTables("categories", "suppliers", "products")
+                .LoadTables("categories", "suppliers", "products")
 
                 .RegisterFormatter(typeof(DateTime), new DateTimeFormatter("yyyy-MM-dd HH:mm:ss"))
                 .RegisterFormatter("ReleaseDate", new DateTimeFormatter("yyyy-MM-dd"))

@@ -31,27 +31,27 @@
   </scripts>
 
   <datasets>
-    <dataset name="categories" setIdentityInsert="true" table="Category">
+    <dataset name="categories" table="public.category">
       <data>
-        <row Id="1" Name="category-1" />
-        <row Id="2" Name="category-2" />
-        <row Id="3" Name="category-3" />
+        <row id="1" name="category-1" />
+        <row id="2" name="category-2" />
+        <row id="3" name="category-3" />
       </data>
     </dataset>
 
-    <dataset name="suppliers" setIdentityInsert="true" table="Supplier">
+    <dataset name="suppliers" table="public.supplier">
       <data>
-        <row Id="1" Name="supplier-1" ContactName="contact-name-1" ContactPhone="100-200-0001" ContactEmail="email-1@test.com" />
-        <row Id="2" Name="supplier-2" ContactName="contact-name-2" ContactPhone="100-200-0002" ContactEmail="email-2@test.com" />
-        <row Id="3" Name="supplier-3" ContactName="contact-name-3" ContactPhone="100-200-0003" ContactEmail="email-3@test.com" />
+        <row id="1" name="supplier-1" contact_name="contact-name-1" contact_phone="100-200-0001" contact_email="email-1@test.com" />
+        <row id="2" name="supplier-2" contact_name="contact-name-2" contact_phone="100-200-0002" contact_email="email-2@test.com" />
+        <row id="3" name="supplier-3" contact_name="contact-name-3" contact_phone="100-200-0003" contact_email="email-3@test.com" />
       </data>
     </dataset>
 
-    <dataset name="products" setIdentityInsert="true" table="Product">
+    <dataset name="products" table="public.product">
       <data>
-        <row Id="1" Code="code-1" Name="product-1" Description="desc-1" Cost="101.10" ListPrice="111.10" CategoryId="1" SupplierId="1" ReleaseDate="2000-01-01" CreatedOn="2000-01-01"/>
-        <row Id="2" Code="code-2" Name="product-2" Description="desc-2" Cost="102.10" ListPrice="112.10" CategoryId="1" SupplierId="2" ReleaseDate="2000-01-02" CreatedOn="2000-01-01 10:11:12"/>
-        <row Id="3" Code="code-3" Name="product-3" Description="desc-3" Cost="103.10" ListPrice="113.10" CategoryId="2" SupplierId="1" ReleaseDate="2000-01-03" CreatedOn="2000-01-02 10:11:12"/>
+        <row id="1" code="code-1" name="product-1" description="desc-1" cost="101.10" list_price="111.10" category_id="1" supplier_id="1" release_date="2000-01-01" created_on="2000-01-01"/>
+        <row id="2" code="code-2" name="product-2" description="desc-2" cost="102.10" list_price="112.10" category_id="1" supplier_id="2" release_date="2000-01-02" created_on="2000-01-01 10:11:12"/>
+        <row id="3" code="code-3" name="product-3" description="desc-3" cost="103.10" list_price="113.10" category_id="2" supplier_id="1" release_date="2000-01-03" created_on="2000-01-02 10:11:12"/>
       </data>
     </dataset>
 

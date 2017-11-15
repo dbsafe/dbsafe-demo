@@ -1,4 +1,4 @@
-﻿using ProductDAL.PG.Db;
+﻿using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +8,13 @@ namespace ProductDAL.PG
 {
     public class ProductDb : Domain.IProductDb
     {
+        private string _connectionString;
+
+        public ProductDb(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         public int AddProduct(Domain.Product product)
         {
             throw new NotImplementedException();
@@ -15,13 +22,30 @@ namespace ProductDAL.PG
 
         public IList<Domain.Category> GetCategories()
         {
-            using (var db = CreateDbContext())
+            var result = new List<Domain.Category>();
+
+            using (var conn = CreateConnection())
             {
-                return db.Categories
-                    .ToList()
-                    .Select(record => new Domain.Category { Id = record.Id, Name = record.Name })
-                    .ToList();
+                var query = "SELECT * FROM public.category";
+                using (var comm = new NpgsqlCommand(query, conn))
+                {
+                    using (var rdr = comm.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            var category = new Domain.Category
+                            {
+                                Id = (int)rdr["id"],
+                                Name = (string)rdr["name"]
+                            };
+
+                            result.Add(category);
+                        }
+                    }
+                }
             }
+
+            return result;
         }
 
         public Domain.Product GetProduct(int productId)
@@ -44,9 +68,11 @@ namespace ProductDAL.PG
             throw new NotImplementedException();
         }
 
-        private ProductEntities CreateDbContext()
+        private NpgsqlConnection CreateConnection()
         {
-            return new ProductEntities();
+            var cnn = new NpgsqlConnection(_connectionString);
+            cnn.Open();
+            return cnn;
         }
     }
 }
