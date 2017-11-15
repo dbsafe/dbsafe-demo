@@ -23,27 +23,20 @@ namespace ProductDAL.PG
         public IList<Domain.Category> GetCategories()
         {
             var result = new List<Domain.Category>();
-
-            using (var conn = CreateConnection())
+            var query = "SELECT * FROM public.category";
+            ExecuteReader(query, (rdr) =>
             {
-                var query = "SELECT * FROM public.category";
-                using (var comm = new NpgsqlCommand(query, conn))
+                while (rdr.Read())
                 {
-                    using (var rdr = comm.ExecuteReader())
+                    var category = new Domain.Category
                     {
-                        while (rdr.Read())
-                        {
-                            var category = new Domain.Category
-                            {
-                                Id = (int)rdr["id"],
-                                Name = (string)rdr["name"]
-                            };
+                        Id = (int)rdr["id"],
+                        Name = (string)rdr["name"]
+                    };
 
-                            result.Add(category);
-                        }
-                    }
+                    result.Add(category);
                 }
-            }
+            });
 
             return result;
         }
@@ -55,7 +48,31 @@ namespace ProductDAL.PG
 
         public IList<Domain.ProductSummary> GetProductSummaries()
         {
-            throw new NotImplementedException();
+            var result = new List<Domain.ProductSummary>();
+            var query = @"
+SELECT p.id, p.name as p_name, p.code, c.name as category, s.name as supplier
+FROM public.product p
+JOIN public.category c ON c.id = p.category_id
+JOIN public.supplier s ON s.id = p.supplier_id;
+";
+            ExecuteReader(query, (rdr) =>
+            {
+                while (rdr.Read())
+                {
+                    var productSummary = new Domain.ProductSummary
+                    {
+                        Id = (int)rdr["id"],
+                        Name = rdr["p_name"].ToString(),
+                        Category = rdr["category"].ToString(),
+                        Code = rdr["code"].ToString(),
+                        Supplier = rdr["supplier"].ToString(),
+                    };
+
+                    result.Add(productSummary);
+                }
+            });
+
+            return result;
         }
 
         public IList<Domain.Supplier> GetSuppliers()
@@ -73,6 +90,18 @@ namespace ProductDAL.PG
             var cnn = new NpgsqlConnection(_connectionString);
             cnn.Open();
             return cnn;
+        }
+
+        private void ExecuteReader(string query, Action<NpgsqlDataReader> action)
+        {
+            using (var conn = CreateConnection())
+            {
+                using (var comm = new NpgsqlCommand(query, conn))
+                {
+                    var rdr = comm.ExecuteReader();
+                    action(rdr);
+                }
+            }
         }
     }
 }
