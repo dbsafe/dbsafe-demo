@@ -94,7 +94,7 @@ namespace ProductDAL.PG.Tests
 
             _target.AddProduct(_product100);
 
-            _dbSafe.AssertDatasetVsScript("products-after-insert", "select-all-products", "Id");
+            _dbSafe.AssertDatasetVsScript("products-after-insert", "select-all-products", "id");
         }
 
         [TestMethod]
@@ -135,7 +135,7 @@ namespace ProductDAL.PG.Tests
             var actual = _target.UpdateSupplier(supplier2);
 
             Assert.IsTrue(actual);
-            _dbSafe.AssertDatasetVsScript("suppliers-updated", "select-all-suppliers", "Id");
+            _dbSafe.AssertDatasetVsScript("suppliers-updated", "select-all-suppliers", "id");
         }
 
         [TestMethod]
@@ -153,7 +153,7 @@ namespace ProductDAL.PG.Tests
             var actual = _target.UpdateSupplier(supplier2);
 
             Assert.IsFalse(actual);
-            _dbSafe.AssertDatasetVsScript("suppliers", "select-all-suppliers", "Id");
+            _dbSafe.AssertDatasetVsScript("suppliers", "select-all-suppliers", "id");
         }
 
         private void AssertCategories(IList<Category> expected, IList<Category> actual)

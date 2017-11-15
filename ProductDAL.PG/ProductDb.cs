@@ -40,7 +40,28 @@ namespace ProductDAL.PG
 
         public Domain.Product GetProduct(int productId)
         {
-            throw new NotImplementedException();
+            using (var db = CreateDbContext())
+            {
+                var record = db.Products.FirstOrDefault(a => a.Id == productId);
+                if (record == null)
+                {
+                    return null;
+                }
+
+                return new Domain.Product
+                {
+                    CategoryId = record.CategoryId,
+                    Code = record.Code,
+                    Description = record.Description,
+                    Cost = record.Cost,
+                    Id = record.Id,
+                    ListPrice = record.ListPrice,
+                    Name = record.Name,
+                    SupplierId = record.SupplierId,
+                    ReleaseDate = record.ReleaseDate,
+                    CreatedOn = record.CreatedOn
+                };
+            }
         }
 
         public IList<Domain.ProductSummary> GetProductSummaries()
@@ -75,7 +96,22 @@ namespace ProductDAL.PG
 
         public bool UpdateSupplier(Domain.Supplier supplier)
         {
-            throw new NotImplementedException();
+            using (var db = CreateDbContext())
+            {
+                var record = db.Suppliers.FirstOrDefault(a => a.Id == supplier.Id);
+                if (record == null)
+                {
+                    return false;
+                }
+
+                record.ContactEmail = supplier.ContactEmail;
+                record.ContactName = supplier.ContactName;
+                record.ContactPhone = supplier.ContactPhone;
+                record.Name = supplier.Name;
+                record.ContactEmail = supplier.ContactEmail;
+                db.SaveChanges();
+                return true;
+            }
         }
 
         private ProductEntities CreateDbContext()
