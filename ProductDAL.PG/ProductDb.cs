@@ -44,31 +44,27 @@ namespace ProductDAL.PG
 
         public IList<Domain.ProductSummary> GetProductSummaries()
         {
-            var result = new List<Domain.ProductSummary>();
-            var query = @"
-SELECT p.id, p.name as p_name, p.code, c.name as category, s.name as supplier
-FROM public.product p
-JOIN public.category c ON c.id = p.category_id
-JOIN public.supplier s ON s.id = p.supplier_id;
-";
-            ExecuteReader(query, (rdr) =>
+            using (var db = CreateDbContext())
             {
-                while (rdr.Read())
-                {
-                    var productSummary = new Domain.ProductSummary
+                var list = db.Products
+                    .Select(record => new
                     {
-                        Id = (int)rdr["id"],
-                        Name = rdr["p_name"].ToString(),
-                        Category = rdr["category"].ToString(),
-                        Code = rdr["code"].ToString(),
-                        Supplier = rdr["supplier"].ToString(),
-                    };
+                        record.Id,
+                        record.Code,
+                        record.Name,
+                        CategoryName = record.Category.Name,
+                        SupplierName = record.Supplier.Name
+                    }).ToList();
 
-                    result.Add(productSummary);
-                }
-            });
-
-            return result;
+                return list.Select(a => new Domain.ProductSummary
+                {
+                    Id = a.Id,
+                    Code = a.Code,
+                    Name = a.Name,
+                    Category = a.CategoryName,
+                    Supplier = a.SupplierName
+                }).ToList();
+            }
         }
 
         public IList<Domain.Supplier> GetSuppliers()
@@ -79,25 +75,6 @@ JOIN public.supplier s ON s.id = p.supplier_id;
         public bool UpdateSupplier(Domain.Supplier supplier)
         {
             throw new NotImplementedException();
-        }
-
-        private NpgsqlConnection CreateConnection()
-        {
-            var cnn = new NpgsqlConnection(_nameOrConnectionString);
-            cnn.Open();
-            return cnn;
-        }
-
-        private void ExecuteReader(string query, Action<NpgsqlDataReader> action)
-        {
-            using (var conn = CreateConnection())
-            {
-                using (var comm = new NpgsqlCommand(query, conn))
-                {
-                    var rdr = comm.ExecuteReader();
-                    action(rdr);
-                }
-            }
         }
 
         private ProductEntities CreateDbContext()
