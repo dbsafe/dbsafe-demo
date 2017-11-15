@@ -28,11 +28,10 @@ namespace ProductDAL.PG.Tests
         [TestInitialize]
         public void Initialize()
         {
-            var connectionString = "Host=localhost;Database=product;Username=dbsafe;Password=dbsafe";
-            _target = new ProductDb(connectionString);
+            _target = new ProductDb();
 
             _dbSafe = PgDbSafeManager.Initialize("product-db-test.xml")
-                .PassConnectionString(connectionString)
+                .SetConnectionString("ProductEntities-Test-Framework")
                 .ExecuteScripts("delete-products", "delete-categories", "delete-suppliers", "reseed-product-table")
                 .LoadTables("categories", "suppliers", "products")
 

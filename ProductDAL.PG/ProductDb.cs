@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using ProductDAL.PG.Db;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,16 @@ namespace ProductDAL.PG
 {
     public class ProductDb : Domain.IProductDb
     {
-        private string _connectionString;
+        private string _nameOrConnectionString;
 
-        public ProductDb(string connectionString)
+        public ProductDb(string nameOrConnectionString)
         {
-            _connectionString = connectionString;
+            _nameOrConnectionString = nameOrConnectionString;
+        }
+
+        public ProductDb()
+            :this("ProductEntities")
+        {
         }
 
         public int AddProduct(Domain.Product product)
@@ -22,23 +28,13 @@ namespace ProductDAL.PG
 
         public IList<Domain.Category> GetCategories()
         {
-            var result = new List<Domain.Category>();
-            var query = "SELECT * FROM public.category";
-            ExecuteReader(query, (rdr) =>
+            using (var db = CreateDbContext())
             {
-                while (rdr.Read())
-                {
-                    var category = new Domain.Category
-                    {
-                        Id = (int)rdr["id"],
-                        Name = (string)rdr["name"]
-                    };
-
-                    result.Add(category);
-                }
-            });
-
-            return result;
+                return db.Categories
+                    .ToList()
+                    .Select(record => new Domain.Category { Id = record.Id, Name = record.Name })
+                    .ToList();
+            }
         }
 
         public Domain.Product GetProduct(int productId)
@@ -87,7 +83,7 @@ JOIN public.supplier s ON s.id = p.supplier_id;
 
         private NpgsqlConnection CreateConnection()
         {
-            var cnn = new NpgsqlConnection(_connectionString);
+            var cnn = new NpgsqlConnection(_nameOrConnectionString);
             cnn.Open();
             return cnn;
         }
@@ -102,6 +98,11 @@ JOIN public.supplier s ON s.id = p.supplier_id;
                     action(rdr);
                 }
             }
+        }
+
+        private ProductEntities CreateDbContext()
+        {
+            return new ProductEntities(_nameOrConnectionString);
         }
     }
 }
