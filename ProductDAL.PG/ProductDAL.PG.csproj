@@ -70,6 +70,10 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="product.backup" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="restoring-product-database.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
