@@ -30,7 +30,7 @@ namespace ProductDAL.PG.Tests
         [TestInitialize]
         public void Initialize()
         {
-            _target = new ProductDb();
+            _target = new ProductDb(new FakeTimeService());
             _target.Log = TestContext.WriteLine;
 
             _dbSafe = PgDbSafeManager.Initialize("product-db-test.xml")
@@ -39,7 +39,7 @@ namespace ProductDAL.PG.Tests
                 .LoadTables("categories", "suppliers", "products")
 
                 .RegisterFormatter(typeof(DateTime), new DateTimeFormatter("yyyy-MM-dd HH:mm:ss"))
-                .RegisterFormatter("ReleaseDate", new DateTimeFormatter("yyyy-MM-dd"))
+                .RegisterFormatter("release_date", new DateTimeFormatter("yyyy-MM-dd"))
                 .RegisterFormatter(typeof(decimal), new DecimalFormatter("0.00"));
 
             Console.WriteLine($"IsGlobalConfig: {_dbSafe.Config.IsGlobalConfig}, SerializeTests: {_dbSafe.Config.SerializeTests}");
@@ -90,26 +90,9 @@ namespace ProductDAL.PG.Tests
         [TestMethod]
         public void AddProduct_Given_product_Must_insert_new_record()
         {
-            _dbSafe.ExecuteScripts("mock_get_date");
-
             _target.AddProduct(_product100);
 
             _dbSafe.AssertDatasetVsScript("products-after-insert", "select-all-products", "id");
-        }
-
-        [TestMethod]
-        public void AddProduct_Given_product_with_an_invalid_category_Must_raise_an_exception()
-        {
-            _product100.CategoryId = 100;
-            try
-            {
-                _target.AddProduct(_product100);
-                Assert.Fail("An exception was not raised.");
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Category not found", ex.InnerException.Message);
-            }
         }
 
         [TestMethod]
@@ -234,6 +217,11 @@ namespace ProductDAL.PG.Tests
             }
 
             return value.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        }
+
+        private class FakeTimeService : ITimeService
+        {
+            public DateTime Now => new DateTime(2015, 10, 20, 14, 50, 01, 456);
         }
     }
 }

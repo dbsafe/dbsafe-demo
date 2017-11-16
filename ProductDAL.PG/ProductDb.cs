@@ -6,25 +6,47 @@ using Domain = ProductBL.Domain;
 
 namespace ProductDAL.PG
 {
+    public interface ITimeService
+    {
+        DateTime Now { get; }
+    }
+
     public class ProductDb : Domain.IProductDb
     {
-        private string _nameOrConnectionString;
+        private ITimeService _timeService;
+
+        public string NameOrConnectionString { get; set; } = "ProductEntities";
 
         public Action<string> Log { get; set; }
 
-        public ProductDb(string nameOrConnectionString)
+        public ProductDb(ITimeService timeService)
         {
-            _nameOrConnectionString = nameOrConnectionString;
-        }
-
-        public ProductDb()
-            :this("ProductEntities")
-        {
+            _timeService = timeService;
         }
 
         public int AddProduct(Domain.Product product)
         {
-            throw new NotImplementedException();
+            var productRecord = new Product
+            {
+                CategoryId = product.CategoryId,
+                Code = product.Code,
+                Cost = product.Cost,
+                CreatedOn = _timeService.Now,
+                Description = product.Description,
+                ListPrice = product.ListPrice,
+                Name = product.Name,
+                ReleaseDate = product.ReleaseDate,
+                SupplierId = product.SupplierId
+            };
+
+            using (var db = CreateDbContext())
+            {
+
+                db.Products.Add(productRecord);
+                db.SaveChanges();
+            }
+
+            return productRecord.Id;
         }
 
         public IList<Domain.Category> GetCategories()
@@ -116,7 +138,7 @@ namespace ProductDAL.PG
 
         private ProductEntities CreateDbContext()
         {
-            var db = new ProductEntities(_nameOrConnectionString);
+            var db = new ProductEntities(NameOrConnectionString);
             db.Database.Log = Log;
             return db;
         }
