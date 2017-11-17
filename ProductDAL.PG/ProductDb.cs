@@ -1,33 +1,52 @@
-﻿using Domain = ProductBL.Domain;
-using ProductDAL.Db;
+﻿using ProductDAL.PG.Db;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
 using System.Linq;
+using Domain = ProductBL.Domain;
 
-namespace ProductDAL
+namespace ProductDAL.PG
 {
+    public interface ITimeService
+    {
+        DateTime Now { get; }
+    }
+
     public class ProductDb : Domain.IProductDb
     {
+        private ITimeService _timeService;
+
+        public string NameOrConnectionString { get; set; } = "ProductEntities";
+
         public Action<string> Log { get; set; }
+
+        public ProductDb(ITimeService timeService)
+        {
+            _timeService = timeService;
+        }
 
         public int AddProduct(Domain.Product product)
         {
+            var productRecord = new Product
+            {
+                CategoryId = product.CategoryId,
+                Code = product.Code,
+                Cost = product.Cost,
+                CreatedOn = _timeService.Now,
+                Description = product.Description,
+                ListPrice = product.ListPrice,
+                Name = product.Name,
+                ReleaseDate = product.ReleaseDate,
+                SupplierId = product.SupplierId
+            };
+
             using (var db = CreateDbContext())
             {
-                var parameterId = new ObjectParameter("Id", typeof(int));
-                db.usp_AddProduct(
-                    product.Code,
-                    product.Name,
-                    product.Description,
-                    product.Cost,
-                    product.ListPrice,
-                    product.CategoryId,
-                    product.SupplierId,
-                    product.ReleaseDate,
-                    parameterId);
-                return (int)parameterId.Value;
+
+                db.Products.Add(productRecord);
+                db.SaveChanges();
             }
+
+            return productRecord.Id;
         }
 
         public IList<Domain.Category> GetCategories()
@@ -119,7 +138,7 @@ namespace ProductDAL
 
         private ProductEntities CreateDbContext()
         {
-            var db = new ProductEntities();
+            var db = new ProductEntities(NameOrConnectionString);
             db.Database.Log = Log;
             return db;
         }

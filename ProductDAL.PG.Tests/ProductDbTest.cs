@@ -1,12 +1,12 @@
-﻿using DbSafe;
+using DbSafe;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductBL.Domain;
-using SqlDbSafe;
+using PgDbSafe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProductDAL.Tests
+namespace ProductDAL.PG.Tests
 {
     [TestClass]
     public class ProductDbTest
@@ -30,16 +30,16 @@ namespace ProductDAL.Tests
         [TestInitialize]
         public void Initialize()
         {
-            _target = new ProductDb();
+            _target = new ProductDb(new FakeTimeService());
             _target.Log = TestContext.WriteLine;
 
-            _dbSafe = SqlDbSafeManager.Initialize("product-db-test.xml")
+            _dbSafe = PgDbSafeManager.Initialize("product-db-test.xml")
                 .SetConnectionString("ProductEntities-Test-Framework")
                 .ExecuteScripts("delete-products", "delete-categories", "delete-suppliers", "reseed-product-table")
                 .LoadTables("categories", "suppliers", "products")
 
                 .RegisterFormatter(typeof(DateTime), new DateTimeFormatter("yyyy-MM-dd HH:mm:ss"))
-                .RegisterFormatter("ReleaseDate", new DateTimeFormatter("yyyy-MM-dd"))
+                .RegisterFormatter("release_date", new DateTimeFormatter("yyyy-MM-dd"))
                 .RegisterFormatter(typeof(decimal), new DecimalFormatter("0.00"));
 
             Console.WriteLine($"IsGlobalConfig: {_dbSafe.Config.IsGlobalConfig}, SerializeTests: {_dbSafe.Config.SerializeTests}");
@@ -90,26 +90,9 @@ namespace ProductDAL.Tests
         [TestMethod]
         public void AddProduct_Given_product_Must_insert_new_record()
         {
-            _dbSafe.ExecuteScripts("mock_get_date");
-
             _target.AddProduct(_product100);
 
-            _dbSafe.AssertDatasetVsScript("products-after-insert", "select-all-products", "Id");
-        }
-
-        [TestMethod]
-        public void AddProduct_Given_product_with_an_invalid_category_Must_raise_an_exception()
-        {
-            _product100.CategoryId = 100;
-            try
-            {
-                _target.AddProduct(_product100);
-                Assert.Fail("An exception was not raised.");
-            }
-            catch (Exception ex)
-            {
-                Assert.AreEqual("Category not found", ex.InnerException.Message);
-            }
+            _dbSafe.AssertDatasetVsScript("products-after-insert", "select-all-products", "id");
         }
 
         [TestMethod]
@@ -135,7 +118,7 @@ namespace ProductDAL.Tests
             var actual = _target.UpdateSupplier(supplier2);
 
             Assert.IsTrue(actual);
-            _dbSafe.AssertDatasetVsScript("suppliers-updated", "select-all-suppliers", "Id");
+            _dbSafe.AssertDatasetVsScript("suppliers-updated", "select-all-suppliers", "id");
         }
 
         [TestMethod]
@@ -153,7 +136,7 @@ namespace ProductDAL.Tests
             var actual = _target.UpdateSupplier(supplier2);
 
             Assert.IsFalse(actual);
-            _dbSafe.AssertDatasetVsScript("suppliers", "select-all-suppliers", "Id");
+            _dbSafe.AssertDatasetVsScript("suppliers", "select-all-suppliers", "id");
         }
 
         private void AssertCategories(IList<Category> expected, IList<Category> actual)
@@ -234,6 +217,11 @@ namespace ProductDAL.Tests
             }
 
             return value.ToString("yyyy-MM-dd HH:mm:ss.fff");
+        }
+
+        private class FakeTimeService : ITimeService
+        {
+            public DateTime Now => new DateTime(2015, 10, 20, 14, 50, 01, 456);
         }
     }
 }

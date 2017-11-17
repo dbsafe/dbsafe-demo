@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dbTest>
+  <scripts>
+    <script name="delete-products">
+      DELETE FROM public.product;
+    </script>
+
+    <script name="delete-categories">
+      DELETE FROM public.category;
+    </script>
+
+    <script name="delete-suppliers">
+      DELETE FROM public.supplier;
+    </script>
+
+    <script name="select-all-products">
+      SELECT * FROM public.product;
+    </script>
+
+    <script name="reseed-product-table">
+      SELECT setval('public.product_id_seq', 99, true);
+    </script>
+
+    <script name="select-all-suppliers">
+      SELECT * FROM public.supplier;
+    </script>
+  </scripts>
+
+  <datasets>
+    <dataset name="categories" table="public.category">
+      <data>
+        <row id="1" name="category-1" />
+        <row id="2" name="category-2" />
+        <row id="3" name="category-3" />
+      </data>
+    </dataset>
+
+    <dataset name="suppliers" table="public.supplier">
+      <data>
+        <row id="1" name="supplier-1" contact_name="contact-name-1" contact_phone="100-200-0001" contact_email="email-1@test.com" />
+        <row id="2" name="supplier-2" contact_name="contact-name-2" contact_phone="100-200-0002" contact_email="email-2@test.com" />
+        <row id="3" name="supplier-3" contact_name="contact-name-3" contact_phone="100-200-0003" contact_email="email-3@test.com" />
+      </data>
+    </dataset>
+
+    <dataset name="products" table="public.product">
+      <data>
+        <row id="1" code="code-1" name="product-1" description="desc-1" cost="101.10" list_price="111.10" category_id="1" supplier_id="1" release_date="2000-01-01" created_on="2000-01-01"/>
+        <row id="2" code="code-2" name="product-2" description="desc-2" cost="102.10" list_price="112.10" category_id="1" supplier_id="2" release_date="2000-01-02" created_on="2000-01-01 10:11:12"/>
+        <row id="3" code="code-3" name="product-3" description="desc-3" cost="103.10" list_price="113.10" category_id="2" supplier_id="1" release_date="2000-01-03" created_on="2000-01-02 10:11:12"/>
+      </data>
+    </dataset>
+
+    <dataset name="products-after-insert" table="Product">
+      <data>
+        <row id="1" code="code-1" name="product-1" description="desc-1" cost="101.10" list_price="111.10" category_id="1" supplier_id="1" release_date="2000-01-01" created_on="2000-01-01 00:00:00"/>
+        <row id="2" code="code-2" name="product-2" description="desc-2" cost="102.10" list_price="112.10" category_id="1" supplier_id="2" release_date="2000-01-02" created_on="2000-01-01 10:11:12"/>
+        <row id="3" code="code-3" name="product-3" description="desc-3" cost="103.10" list_price="113.10" category_id="2" supplier_id="1" release_date="2000-01-03" created_on="2000-01-02 10:11:12"/>
+        <row id="100" code="code-100" name="product-100" description="desc-100" cost="1000.00" list_price="1100.00" category_id="1" supplier_id="2" release_date="2010-10-10" created_on="2015-10-20 14:50:01"/>
+      </data>
+    </dataset>
+
+    <dataset name="suppliers-updated" table="Supplier">
+      <data>
+        <row id="1" name="supplier-1" contact_name="contact-name-1" contact_phone="100-200-0001" contact_email="email-1@test.com" />
+        <row id="2" name="supplier-2-updated" contact_name="contact-name-2-updated" contact_phone="100-200-9999" contact_email="email-2-updated@test.com" />
+        <row id="3" name="supplier-3" contact_name="contact-name-3" contact_phone="100-200-0003" contact_email="email-3@test.com" />
+      </data>
+    </dataset>    
+
+  </datasets>
+</dbTest>

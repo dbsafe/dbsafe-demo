@@ -1,0 +1,21 @@
+Steps to create the demo database used by this test:
+
+1. Create a database called 'product_build'.
+
+2. Restore the database from the file product.backup
+
+3. Use these commands to create the user used by the test and grant access to the tables.
+
+CREATE USER dbsafe WITH
+  LOGIN
+  NOSUPERUSER
+  INHERIT
+  NOCREATEDB
+  NOCREATEROLE
+  NOREPLICATION;
+  
+ALTER USER dbsafe PASSWORD 'dbsafe';  
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO dbsafe;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO dbsafe;
+  
