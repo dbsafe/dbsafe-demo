@@ -30,8 +30,10 @@ namespace ProductDAL.Tests
         [TestInitialize]
         public void Initialize()
         {
-            _target = new ProductDb();
-            _target.Log = TestContext.WriteLine;
+            _target = new ProductDb
+            {
+                Log = TestContext.WriteLine
+            };
 
             _dbSafe = SqlDbSafeManager.Initialize("product-db-test.xml")
                 .SetConnectionString("ProductEntities-Test-Framework")
