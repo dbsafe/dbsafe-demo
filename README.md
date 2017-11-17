@@ -1,6 +1,6 @@
 dbsafe-demo
 ===========
-Demonstrates how to use [NuGet package SqlDbSafe]( https://www.nuget.org/packages/SqlDbSafe/) to test a DAL component that connects to a SQL Server database.
+Demonstrates how to use NuGet packages [SqlDbSafe]( https://www.nuget.org/packages/SqlDbSafe/) and [PgDbSafe]( https://www.nuget.org/packages/PgDbSafe/) to test DAL components that connect to SQL Server and PostgreSQL.
 
 Projects
 --------
