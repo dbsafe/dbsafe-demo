@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductDAL.PG", "ProductDAL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductDAL.PG.Tests", "ProductDAL.PG.Tests\ProductDAL.PG.Tests.csproj", "{55DF1298-C721-4852-B568-FE66A0529B73}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{01AE5A2B-1F81-4D43-89DD-A5396F8A0FA3}"
+	ProjectSection(SolutionItems) = preProject
+		ExecuteTests.ps1 = ExecuteTests.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
