@@ -38,8 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DbSafe, Version=1.0.21.16, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DbSafe.1.0.21\lib\netstandard2.0\DbSafe.dll</HintPath>
+    <Reference Include="DbSafe, Version=1.1.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbSafe.1.1.0.14\lib\net461\DbSafe.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -53,8 +53,8 @@
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.2.0\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="SqlDbSafe, Version=1.0.21.16, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SqlDbSafe.1.0.21\lib\netstandard2.0\SqlDbSafe.dll</HintPath>
+    <Reference Include="SqlDbSafe, Version=1.1.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SqlDbSafe.1.1.0.14\lib\net461\SqlDbSafe.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -72,6 +72,7 @@
   <ItemGroup>
     <Compile Include="ProductDbTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReusingConnectionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

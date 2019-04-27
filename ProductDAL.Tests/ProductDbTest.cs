@@ -44,7 +44,7 @@ namespace ProductDAL.Tests
                 .RegisterFormatter("ReleaseDate", new DateTimeFormatter("yyyy-MM-dd"))
                 .RegisterFormatter(typeof(decimal), new DecimalFormatter("0.00"));
 
-            Console.WriteLine($"IsGlobalConfig: {_dbSafe.Config.IsGlobalConfig}, SerializeTests: {_dbSafe.Config.SerializeTests}");
+            Console.WriteLine($"IsGlobalConfig: {_dbSafe.Config.IsGlobalConfig}, SerializeTests: {_dbSafe.Config.SerializeTests}, ReuseConnection: {_dbSafe.Config.ReuseConnection}");
         }
 
         [TestCleanup]

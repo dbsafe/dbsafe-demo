@@ -38,8 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DbSafe, Version=1.0.21.16, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DbSafe.1.0.21\lib\netstandard2.0\DbSafe.dll</HintPath>
+    <Reference Include="DbSafe, Version=1.1.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DbSafe.1.1.0.14\lib\net461\DbSafe.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -59,8 +59,8 @@
     <Reference Include="Npgsql, Version=3.2.5.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.3.2.5\lib\net451\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="PgDbSafe, Version=1.0.21.16, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\PgDbSafe.1.0.21\lib\netstandard2.0\PgDbSafe.dll</HintPath>
+    <Reference Include="PgDbSafe, Version=1.1.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\PgDbSafe.1.1.0.14\lib\net461\PgDbSafe.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

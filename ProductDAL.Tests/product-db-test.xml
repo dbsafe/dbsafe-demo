@@ -28,6 +28,21 @@
     <script name="select-all-suppliers">
       SELECT * FROM [dbo].[Supplier];
     </script>
+
+    <script name="create-global-temp-table">
+      IF OBJECT_ID('tempdb.dbo.##GlobalTempTable') IS NOT NULL
+        DROP TABLE ##GlobalTempTable
+
+      CREATE TABLE ##GlobalTempTable (col1 INT PRIMARY KEY);
+    </script>
+
+    <script name="script-verify-if-temp-table-exists">
+      IF OBJECT_ID('tempdb.dbo.##GlobalTempTable') IS NOT NULL
+        SELECT '1' AS TempTableExists
+      ELSE
+        SELECT '0' AS TempTableExists;
+    </script>
+    
   </scripts>
 
   <datasets>
@@ -70,7 +85,19 @@
         <row Id="2" Name="supplier-2-updated" ContactName="contact-name-2-updated" ContactPhone="100-200-9999" ContactEmail="email-2-updated@test.com" />
         <row Id="3" Name="supplier-3" ContactName="contact-name-3" ContactPhone="100-200-0003" ContactEmail="email-3@test.com" />
       </data>
-    </dataset>    
+    </dataset>
+
+    <dataset name="dataset-temp-table-exists" >
+      <data>
+        <row TempTableExists="1" />
+      </data>
+    </dataset>
+
+    <dataset name="dataset-temp-table-does-not-exist" >
+      <data>
+        <row TempTableExists="0" />
+      </data>
+    </dataset>
 
   </datasets>
 </dbTest>
