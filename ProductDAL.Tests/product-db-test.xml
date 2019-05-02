@@ -42,7 +42,13 @@
       ELSE
         SELECT '0' AS TempTableExists;
     </script>
-    
+
+    <script name="script-select-product-using-view">
+      SELECT pw.Code, pw.Name, pw.Category
+      FROM [dbo].[uw_Product] pw
+      WHERE pw.Id = 2;
+    </script>
+
   </scripts>
 
   <datasets>
@@ -96,6 +102,12 @@
     <dataset name="dataset-temp-table-does-not-exist" >
       <data>
         <row TempTableExists="0" />
+      </data>
+    </dataset>
+
+    <dataset name="expected-products-using-view" >
+      <data>
+        <row Code="code-2" Name="product-2" Category="category-1" />
       </data>
     </dataset>
 

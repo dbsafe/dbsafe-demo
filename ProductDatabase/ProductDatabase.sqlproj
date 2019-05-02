@@ -63,6 +63,7 @@
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Views\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Supplier.sql" />
@@ -70,5 +71,6 @@
     <Build Include="dbo\Tables\Product.sql" />
     <Build Include="dbo\Stored Procedures\usp_AddProduct.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetDate.sql" />
+    <Build Include="dbo\Views\uw_Product.sql" />
   </ItemGroup>
 </Project>
