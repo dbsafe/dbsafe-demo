@@ -29,3 +29,10 @@ A Data Access Layer that uses Entity Framework to communicate with the Product d
 
 **ProductDAL.PG.Tests:**<br>
 The unit test project with the integration test for testing the DAL.
+
+Visual Studio
+-------------
+
+Project ProductDatabase.Tests deploys the test database by executing a dummy test. The test works and the database is deployed when using VS2017. 
+
+When using VS2019 the database deployment fails to load assemblies from previous versions. If using VS2019 deploy the database using another way.
