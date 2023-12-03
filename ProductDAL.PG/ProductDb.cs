@@ -13,7 +13,7 @@ namespace ProductDAL.PG
 
     public class ProductDb : Domain.IProductDb
     {
-        private ITimeService _timeService;
+        private readonly ITimeService _timeService;
 
         public string NameOrConnectionString { get; set; } = "ProductEntities";
 
