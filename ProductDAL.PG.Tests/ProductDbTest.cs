@@ -14,24 +14,26 @@ namespace ProductDAL.PG.Tests
         private ProductDb _target;
         private IDbSafeManager _dbSafe;
 
-        private Category _category1 = new Category { Id = 1, Name = "category-1" };
-        private Category _category2 = new Category { Id = 2, Name = "category-2" };
-        private Category _category3 = new Category { Id = 3, Name = "category-3" };
+        private readonly Category _category1 = new Category { Id = 1, Name = "category-1" };
+        private readonly Category _category2 = new Category { Id = 2, Name = "category-2" };
+        private readonly Category _category3 = new Category { Id = 3, Name = "category-3" };
 
-        private ProductSummary _productSummary1 = new ProductSummary { Id = 1, Code = "code-1", Name = "product-1", Category = "category-1", Supplier = "supplier-1" };
-        private ProductSummary _productSummary2 = new ProductSummary { Id = 2, Code = "code-2", Name = "product-2", Category = "category-1", Supplier = "supplier-2" };
-        private ProductSummary _productSummary3 = new ProductSummary { Id = 3, Code = "code-3", Name = "product-3", Category = "category-2", Supplier = "supplier-1" };
+        private readonly ProductSummary _productSummary1 = new ProductSummary { Id = 1, Code = "code-1", Name = "product-1", Category = "category-1", Supplier = "supplier-1" };
+        private readonly ProductSummary _productSummary2 = new ProductSummary { Id = 2, Code = "code-2", Name = "product-2", Category = "category-1", Supplier = "supplier-2" };
+        private readonly ProductSummary _productSummary3 = new ProductSummary { Id = 3, Code = "code-3", Name = "product-3", Category = "category-2", Supplier = "supplier-1" };
 
-        private Product _product2 = new Product { Id = 2, Code = "code-2", Name = "product-2", CategoryId = 1, SupplierId = 2, Cost = 102.10m, Description = "desc-2", ListPrice = 112.10m, ReleaseDate = new DateTime(2000, 1, 2), CreatedOn = new DateTime(2000, 1, 1, 10, 11, 12) };
-        private Product _product100 = new Product { Code = "code-100", Name = "product-100", CategoryId = 1, SupplierId = 2, Cost = 1000m, Description = "desc-100", ListPrice = 1100m, ReleaseDate = new DateTime(2010, 10, 10), CreatedOn = new DateTime(2010, 1, 1, 12, 12, 12) };
+        private readonly Product _product2 = new Product { Id = 2, Code = "code-2", Name = "product-2", CategoryId = 1, SupplierId = 2, Cost = 102.10m, Description = "desc-2", ListPrice = 112.10m, ReleaseDate = new DateTime(2000, 1, 2), CreatedOn = new DateTime(2000, 1, 1, 10, 11, 12) };
+        private readonly Product _product100 = new Product { Code = "code-100", Name = "product-100", CategoryId = 1, SupplierId = 2, Cost = 1000m, Description = "desc-100", ListPrice = 1100m, ReleaseDate = new DateTime(2010, 10, 10), CreatedOn = new DateTime(2010, 1, 1, 12, 12, 12) };
 
         public TestContext TestContext { get; set; }
 
         [TestInitialize]
         public void Initialize()
         {
-            _target = new ProductDb(new FakeTimeService());
-            _target.Log = TestContext.WriteLine;
+            _target = new ProductDb(new FakeTimeService())
+            {
+                Log = TestContext.WriteLine
+            };
 
             _dbSafe = PgDbSafeManager.Initialize("product-db-test.xml")
                 .SetConnectionString("ProductEntities-Test-Framework")
@@ -122,7 +124,7 @@ namespace ProductDAL.PG.Tests
         }
 
         [TestMethod]
-        public void UpdateSupplier_Given_an_id_that_does_not_exist_Must_return_false_whiout_updating_any_record()
+        public void UpdateSupplier_Given_an_id_that_does_not_exist_Must_return_false_without_updating_any_record()
         {
             var supplier2 = new Supplier
             {
@@ -190,33 +192,6 @@ namespace ProductDAL.PG.Tests
             Assert.AreEqual(expected.SupplierId, actual.SupplierId);
             Assert.AreEqual(expected.ReleaseDate, actual.ReleaseDate);
             Assert.AreEqual(expected.CreatedOn, actual.CreatedOn);
-        }
-
-        private string FormatDateTime(DateTime value)
-        {
-            if (value.TimeOfDay == TimeSpan.Zero)
-            {
-                return value.ToString("yyyy-MM-dd");
-            }
-            else
-            {
-                return value.ToString("yyyy-MM-dd HH:mm:ss");
-            }
-        }
-
-        private string FormatDateTimeWithMs(DateTime value)
-        {
-            if (value.TimeOfDay == TimeSpan.Zero)
-            {
-                return value.ToString("yyyy-MM-dd");
-            }
-
-            if (value.TimeOfDay.Milliseconds == 0)
-            {
-                return value.ToString("yyyy-MM-dd HH:mm:ss");
-            }
-
-            return value.ToString("yyyy-MM-dd HH:mm:ss.fff");
         }
 
         private class FakeTimeService : ITimeService
